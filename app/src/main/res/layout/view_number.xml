@@ -6,6 +6,7 @@
     android:padding="15dp">
 
     <LinearLayout
+        android:id="@+id/contentContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
@@ -20,6 +21,20 @@
 
         <ImageView
             android:id="@+id/imgNumber2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:src="@drawable/number_0" />
+        <ImageView
+            android:id="@+id/imgNumber3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:src="@drawable/number_0" />
+        <ImageView
+            android:id="@+id/imgNumber4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

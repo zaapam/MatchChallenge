@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zaapamstudio.matchchallenge.R;
+import com.zaapamstudio.matchchallenge.view.NumberButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +28,16 @@ public class GameFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private NumberButton btnNumber1;
+    private NumberButton btnNumber2;
+    private NumberButton btnNumber3;
+    private NumberButton btnNumber4;
+    private NumberButton btnPlus;
+    private NumberButton btnMinus;
+    private NumberButton btnMultiply;
+    private NumberButton btnDivine;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -61,7 +72,29 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_game, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_game, container, false);
+        initInstance(rootView);
+        return rootView;
+    }
+
+    private void initInstance(View rootView) {
+        btnNumber1 = (NumberButton) rootView.findViewById(R.id.btnNumber1);
+        btnNumber2 = (NumberButton) rootView.findViewById(R.id.btnNumber2);
+        btnNumber3 = (NumberButton) rootView.findViewById(R.id.btnNumber3);
+        btnNumber4 = (NumberButton) rootView.findViewById(R.id.btnNumber4);
+        btnPlus = (NumberButton) rootView.findViewById(R.id.btnPlus);
+        btnMinus = (NumberButton) rootView.findViewById(R.id.btnMinus);
+        btnMultiply = (NumberButton) rootView.findViewById(R.id.btnMultiply);
+        btnDivine = (NumberButton) rootView.findViewById(R.id.btnDevine);
+
+        btnPlus.setText("+");
+        btnMinus.setText("-");
+        btnMultiply.setText("*");
+        btnDivine.setText("/");
+        btnNumber1.setText("3");
+        btnNumber2.setText("13");
+        btnNumber3.setText("123");
+        btnNumber4.setText("1783");
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -75,7 +108,7 @@ public class GameFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            //mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");

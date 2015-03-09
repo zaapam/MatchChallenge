@@ -1,5 +1,6 @@
 package com.zaapamstudio.matchchallenge.activity;
 
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -12,10 +13,11 @@ import android.view.ViewGroup;
 import android.os.Build;
 
 import com.zaapamstudio.matchchallenge.R;
+import com.zaapamstudio.matchchallenge.fragment.GameFragment;
 import com.zaapamstudio.matchchallenge.fragment.MainFragment;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements MainFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,11 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
     /**

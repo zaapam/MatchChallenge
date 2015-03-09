@@ -1,6 +1,7 @@
 package com.zaapamstudio.matchchallenge;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.zaapamstudio.matchchallenge.utils.Contextor;
 
@@ -12,6 +13,8 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Log.e("MatchC", "Hello world");
 
         Contextor.getInstance().init(getApplicationContext());
     }

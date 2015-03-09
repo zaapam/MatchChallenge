@@ -69,9 +69,7 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
         initInstance(rootView);
-
         return rootView;
     }
 
