@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.zaapamstudio.matchchallenge.fragment.GameFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -12,12 +13,17 @@
         android:padding="5dp">
 
         <TextView
+            android:id="@+id/tvTimer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="5dp"
             android:textSize="25sp"
             android:text="00:30"
+            android:textStyle="bold"
             android:layout_alignParentLeft="true"
-            android:background="#00ff00"/>
+            android:background="#BA68C8"
+            android:textColor="#FFFFFF"/>
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -34,93 +40,115 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="20">
+        android:layout_weight="20"
+        android:background="#ffffff"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:padding="5dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5"/>
+        <com.zaapamstudio.matchchallenge.view.NumberButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="5dp"/>
+        <com.zaapamstudio.matchchallenge.view.NumberButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"/>
+        <com.zaapamstudio.matchchallenge.view.NumberButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="20dp"/>
 
     </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="20">
-
-        <com.zaapamstudio.matchchallenge.view.NumberButton
-            android:id="@+id/btnPlus"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="5dp"/>
-        <com.zaapamstudio.matchchallenge.view.NumberButton
-            android:id="@+id/btnMinus"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="5dp"/>
-        <com.zaapamstudio.matchchallenge.view.NumberButton
-            android:id="@+id/btnMultiply"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="5dp"/>
-        <com.zaapamstudio.matchchallenge.view.NumberButton
-            android:id="@+id/btnDevine"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="5dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
         android:layout_weight="50">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="2">
 
             <com.zaapamstudio.matchchallenge.view.NumberButton
                 android:id="@+id/btnNumber1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_margin="5dp"/>
             <com.zaapamstudio.matchchallenge.view.NumberButton
                 android:id="@+id/btnNumber2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_margin="5dp"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="2">
 
             <com.zaapamstudio.matchchallenge.view.NumberButton
                 android:id="@+id/btnNumber3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_margin="5dp"/>
             <com.zaapamstudio.matchchallenge.view.NumberButton
                 android:id="@+id/btnNumber4"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_margin="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <com.zaapamstudio.matchchallenge.view.NumberButton
+                android:id="@+id/btnPlus"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+            <com.zaapamstudio.matchchallenge.view.NumberButton
+                android:id="@+id/btnMinus"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+            <com.zaapamstudio.matchchallenge.view.NumberButton
+                android:id="@+id/btnMultiply"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+            <com.zaapamstudio.matchchallenge.view.NumberButton
+                android:id="@+id/btnDevine"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+
         </LinearLayout>
 
     </LinearLayout>

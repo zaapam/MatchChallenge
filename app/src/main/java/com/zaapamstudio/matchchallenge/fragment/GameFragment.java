@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.cycleindex.multitimer.CountDownTimerWithPause;
 import com.zaapamstudio.matchchallenge.R;
 import com.zaapamstudio.matchchallenge.view.NumberButton;
 
@@ -37,6 +39,9 @@ public class GameFragment extends Fragment {
     private NumberButton btnMinus;
     private NumberButton btnMultiply;
     private NumberButton btnDivine;
+    private TextView tvTimer;
+
+    private CountDownTimerWithPause timer;
 
 
     private OnFragmentInteractionListener mListener;
@@ -86,6 +91,7 @@ public class GameFragment extends Fragment {
         btnMinus = (NumberButton) rootView.findViewById(R.id.btnMinus);
         btnMultiply = (NumberButton) rootView.findViewById(R.id.btnMultiply);
         btnDivine = (NumberButton) rootView.findViewById(R.id.btnDevine);
+        tvTimer = (TextView) rootView.findViewById(R.id.tvTimer);
 
         btnPlus.setText("+");
         btnMinus.setText("-");
@@ -95,6 +101,20 @@ public class GameFragment extends Fragment {
         btnNumber2.setText("13");
         btnNumber3.setText("123");
         btnNumber4.setText("1783");
+    }
+
+    private void start() {
+        timer = new CountDownTimerWithPause(1000, 9999, true) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
     }
 
     // TODO: Rename method, update argument and hook method into UI event
