@@ -3,13 +3,15 @@ package com.zaapamstudio.matchchallenge.fragment;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.cycleindex.multitimer.CountDownTimerWithPause;
+import com.zaapamstudio.matchchallenge.utils.CountDownTimerPausable;
 import com.zaapamstudio.matchchallenge.R;
 import com.zaapamstudio.matchchallenge.view.NumberButton;
 
@@ -40,8 +42,9 @@ public class GameFragment extends Fragment {
     private NumberButton btnMultiply;
     private NumberButton btnDivine;
     private TextView tvTimer;
+    private int timeCounter = 0;
 
-    private CountDownTimerWithPause timer;
+    private CountDownTimerPausable timer;
 
 
     private OnFragmentInteractionListener mListener;
@@ -101,20 +104,28 @@ public class GameFragment extends Fragment {
         btnNumber2.setText("13");
         btnNumber3.setText("123");
         btnNumber4.setText("1783");
+
+        start();
     }
 
     private void start() {
-        timer = new CountDownTimerWithPause(1000, 9999, true) {
+        Log.e("Test", "Start");
+        timer = new CountDownTimerPausable(1000 * 9999, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-
+                timeCounter++;
+                Log.e("Test", "Counter : " + timeCounter);
+                int sec = (int)(timeCounter % 60);
+                int min = (int)(timeCounter / 60);
+                tvTimer.setText(String.format("%02d:%02d", min, sec));
             }
 
             @Override
             public void onFinish() {
-
+                Log.e("Test", "Finish");
             }
         };
+        timer.start();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
