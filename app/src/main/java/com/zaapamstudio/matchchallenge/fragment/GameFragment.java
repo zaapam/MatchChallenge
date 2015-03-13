@@ -15,6 +15,8 @@ import com.zaapamstudio.matchchallenge.utils.CountDownTimerPausable;
 import com.zaapamstudio.matchchallenge.R;
 import com.zaapamstudio.matchchallenge.view.NumberButton;
 
+import java.util.Random;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -41,10 +43,18 @@ public class GameFragment extends Fragment {
     private NumberButton btnMinus;
     private NumberButton btnMultiply;
     private NumberButton btnDivine;
+    private NumberButton btnInput1;
+    private NumberButton btnInput2;
+    private NumberButton btnInputOperator;
+
     private TextView tvTimer;
     private int timeCounter = 0;
+    private int[] slots;
+    private boolean[] numberActive;
+    private boolean  operatorActive;
 
     private CountDownTimerPausable timer;
+    private Random random;
 
 
     private OnFragmentInteractionListener mListener;
@@ -86,6 +96,11 @@ public class GameFragment extends Fragment {
     }
 
     private void initInstance(View rootView) {
+        random = new Random();
+        slots = new int[]{0, 0, 0, 0};
+        numberActive = new boolean[]{false, false};
+        operatorActive = false;
+
         btnNumber1 = (NumberButton) rootView.findViewById(R.id.btnNumber1);
         btnNumber2 = (NumberButton) rootView.findViewById(R.id.btnNumber2);
         btnNumber3 = (NumberButton) rootView.findViewById(R.id.btnNumber3);
@@ -94,18 +109,81 @@ public class GameFragment extends Fragment {
         btnMinus = (NumberButton) rootView.findViewById(R.id.btnMinus);
         btnMultiply = (NumberButton) rootView.findViewById(R.id.btnMultiply);
         btnDivine = (NumberButton) rootView.findViewById(R.id.btnDevine);
+        btnInput1 = (NumberButton) rootView.findViewById(R.id.btnInput1);
+        btnInput2 = (NumberButton) rootView.findViewById(R.id.btnInput2);
+        btnInputOperator = (NumberButton) rootView.findViewById(R.id.btnInputOperator);
         tvTimer = (TextView) rootView.findViewById(R.id.tvTimer);
 
-        btnPlus.setText("+");
-        btnMinus.setText("-");
-        btnMultiply.setText("*");
-        btnDivine.setText("/");
-        btnNumber1.setText("3");
-        btnNumber2.setText("13");
-        btnNumber3.setText("123");
-        btnNumber4.setText("1783");
+        btnPlus.setText(NumberButton.CHAR_PLUS);
+        btnMinus.setText(NumberButton.CHAR_MINUS);
+        btnMultiply.setText(NumberButton.CHAR_MULTIPLY);
+        btnDivine.setText(NumberButton.CHAR_DEVINE);
+        btnNumber1.setNumber(getRandomNumber());
+        btnNumber2.setNumber(getRandomNumber());
+        btnNumber3.setNumber(getRandomNumber());
+        btnNumber4.setNumber(getRandomNumber());
+
+        btnNumber1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnNumber2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnNumber3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnNumber4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnMultiply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnDivine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         start();
+    }
+
+    private int getRandomNumber() {
+        return random.nextInt(8) + 1;
     }
 
     private void start() {
@@ -126,6 +204,10 @@ public class GameFragment extends Fragment {
             }
         };
         timer.start();
+    }
+
+    private void reset() {
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

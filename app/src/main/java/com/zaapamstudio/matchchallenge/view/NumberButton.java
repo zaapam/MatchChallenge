@@ -14,6 +14,11 @@ import com.zaapamstudio.matchchallenge.R;
  */
 public class NumberButton extends LinearLayout {
 
+    public static final String CHAR_PLUS = "+";
+    public static final String CHAR_MINUS = "-";
+    public static final String CHAR_MULTIPLY = "*";
+    public static final String CHAR_DEVINE = "/";
+
     private ImageView imgNumber1;
     private ImageView imgNumber2;
     private ImageView imgNumber3;
@@ -67,10 +72,6 @@ public class NumberButton extends LinearLayout {
 
         container.removeAllViewsInLayout();
 
-        //removeAllViews();
-        //removeAllViewsInLayout();
-        //removeView(imgNumber1);
-
         for (int i=0 ; i<chars.length ; i++) {
             switch (i) {
                 case 0:
@@ -92,6 +93,12 @@ public class NumberButton extends LinearLayout {
 
             }
         }
+    }
+
+    public void setNumber(int number) {
+        currentNumber = number;
+
+        setText(currentNumber + "");
     }
 
     public int getNumber() {
