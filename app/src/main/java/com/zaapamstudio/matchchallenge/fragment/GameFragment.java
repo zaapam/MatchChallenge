@@ -31,6 +31,8 @@ public class GameFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static final int DEFAULT_NUMBER = -9999;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -50,7 +52,7 @@ public class GameFragment extends Fragment {
     private TextView tvTimer;
     private int timeCounter = 0;
     private int[] slots;
-    private boolean[] numberActive;
+    private NumberButton[] numberActive;
     private boolean  operatorActive;
 
     private CountDownTimerPausable timer;
@@ -98,7 +100,7 @@ public class GameFragment extends Fragment {
     private void initInstance(View rootView) {
         random = new Random();
         slots = new int[]{0, 0, 0, 0};
-        numberActive = new boolean[]{false, false};
+        numberActive = new NumberButton[2];
         operatorActive = false;
 
         btnNumber1 = (NumberButton) rootView.findViewById(R.id.btnNumber1);
@@ -122,60 +124,64 @@ public class GameFragment extends Fragment {
         btnNumber2.setNumber(getRandomNumber());
         btnNumber3.setNumber(getRandomNumber());
         btnNumber4.setNumber(getRandomNumber());
+        slots[0] = btnNumber1.getNumber();
+        slots[1] = btnNumber2.getNumber();
+        slots[2] = btnNumber3.getNumber();
+        slots[3] = btnNumber4.getNumber();
 
         btnNumber1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setInputNumber(btnNumber1);
             }
         });
 
         btnNumber2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setInputNumber(btnNumber2);
             }
         });
 
         btnNumber3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setInputNumber(btnNumber3);
             }
         });
 
         btnNumber4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setInputNumber(btnNumber4);
             }
         });
 
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setInputOperator(btnPlus);
             }
         });
 
         btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setInputOperator(btnMinus);
             }
         });
 
         btnMultiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setInputOperator(btnMultiply);
             }
         });
 
         btnDivine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setInputOperator(btnDivine);
             }
         });
 
@@ -184,6 +190,23 @@ public class GameFragment extends Fragment {
 
     private int getRandomNumber() {
         return random.nextInt(8) + 1;
+    }
+
+    private void setInputNumber(NumberButton number) {
+        if (btnInput1.isEnable() == false) {
+            btnInput1.setNumber(number.getNumber());
+            btnInput1.setEnable(true);
+            numberActive[0] = number;
+        } else {
+            btnInput2.setNumber(number.getNumber());
+            btnInput2.setEnable(true);
+            numberActive[1] = number;
+        }
+    }
+
+    private void setInputOperator(NumberButton operator) {
+        btnInputOperator.setText(operator.getText());
+        operatorActive = true;
     }
 
     private void start() {

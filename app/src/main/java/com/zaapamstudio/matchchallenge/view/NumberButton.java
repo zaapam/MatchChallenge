@@ -25,6 +25,8 @@ public class NumberButton extends LinearLayout {
     private ImageView imgNumber4;
     private LinearLayout container;
     private int currentNumber;
+    private String currentText;
+    private boolean enable;
 
     public NumberButton(Context context) {
         super(context);
@@ -66,6 +68,7 @@ public class NumberButton extends LinearLayout {
 
     public void setText(String text) {
         //String[] strings = text.split("");
+        currentText = text;
         char[] chars = text.toCharArray();
 
         //Log.d("MC", "Number str count: " + strings.length);
@@ -93,6 +96,10 @@ public class NumberButton extends LinearLayout {
 
             }
         }
+    }
+
+    public String getText() {
+        return currentText;
     }
 
     public void setNumber(int number) {
@@ -124,5 +131,13 @@ public class NumberButton extends LinearLayout {
             case "/": return R.drawable.char_divine;
             default: return 0;
         }
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
     }
 }

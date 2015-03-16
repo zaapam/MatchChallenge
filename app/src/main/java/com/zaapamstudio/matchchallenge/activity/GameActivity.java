@@ -13,8 +13,9 @@ import android.os.Build;
 
 import com.zaapamstudio.matchchallenge.R;
 import com.zaapamstudio.matchchallenge.fragment.GameFragment;
+import com.zaapamstudio.matchchallenge.fragment.IFragmentInteractListener;
 
-public class GameActivity extends ActionBarActivity {
+public class GameActivity extends ActionBarActivity implements IFragmentInteractListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,11 @@ public class GameActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void OnFragmentInteract(String text) {
+
     }
 
     /**
