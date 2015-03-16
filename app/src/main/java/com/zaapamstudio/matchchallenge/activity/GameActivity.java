@@ -13,9 +13,14 @@ import android.os.Build;
 
 import com.zaapamstudio.matchchallenge.R;
 import com.zaapamstudio.matchchallenge.fragment.GameFragment;
+import com.zaapamstudio.matchchallenge.fragment.GamePauseFragment;
 import com.zaapamstudio.matchchallenge.fragment.IFragmentInteractListener;
 
 public class GameActivity extends ActionBarActivity implements IFragmentInteractListener {
+
+    public static final String STATE_PAUSE = "pause";
+    public static final String STATE_PLAY = "play";
+    public static final String STATE_RESUME = "resume";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +28,7 @@ public class GameActivity extends ActionBarActivity implements IFragmentInteract
         setContentView(R.layout.activity_game);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                                       .add(R.id.container, GameFragment.newInstance())
+                                       .add(R.id.container, GameFragment.newInstance(), "GameFragment")
                                        .commit();
         }
     }
@@ -53,7 +58,19 @@ public class GameActivity extends ActionBarActivity implements IFragmentInteract
 
     @Override
     public void OnFragmentInteract(String text) {
-
+        switch (text) {
+            case STATE_PAUSE:
+                getSupportFragmentManager().beginTransaction()
+                                           .add(R.id.container, GamePauseFragment.newInstance(), "GamePauseFragment")
+                                           .commit();
+                break;
+            case STATE_RESUME:
+                getSupportFragmentManager().beginTransaction()
+                                           .remove(getSupportFragmentManager().findFragmentByTag("GamePauseFragment"))
+                                           .commit();
+                ((GameFragment)getSupportFragmentManager().findFragmentByTag("GameFragment")).resume();
+                break;
+        }
     }
 
     /**

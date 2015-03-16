@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -26,7 +27,6 @@ public class NumberButton extends LinearLayout {
     private LinearLayout container;
     private int currentNumber;
     private String currentText;
-    private boolean enable;
 
     public NumberButton(Context context) {
         super(context);
@@ -52,13 +52,16 @@ public class NumberButton extends LinearLayout {
         inflater.inflate(R.layout.view_number, this, true);
 
 
+
         container = (LinearLayout) findViewById(R.id.contentContainer);
         imgNumber1 = (ImageView) findViewById(R.id.imgNumber1);
         imgNumber2 = (ImageView) findViewById(R.id.imgNumber2);
         imgNumber3 = (ImageView) findViewById(R.id.imgNumber3);
         imgNumber4 = (ImageView) findViewById(R.id.imgNumber4);
 
+        container.setClickable(true);
 
+        container.setEnabled(false);
 
         //imgNumber1.setImageResource(R.drawable.number_2);
         //removeView(imgNumber1);
@@ -133,11 +136,14 @@ public class NumberButton extends LinearLayout {
         }
     }
 
-    public boolean isEnable() {
-        return enable;
-    }
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+        if (isEnabled()) {
+            container.setEnabled(true);
+        } else {
+            container.setEnabled(false);
+        }
     }
 }

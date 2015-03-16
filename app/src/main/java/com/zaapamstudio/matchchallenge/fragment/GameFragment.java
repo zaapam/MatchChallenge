@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.zaapamstudio.matchchallenge.activity.GameActivity;
 import com.zaapamstudio.matchchallenge.utils.CountDownTimerPausable;
 import com.zaapamstudio.matchchallenge.R;
 import com.zaapamstudio.matchchallenge.view.NumberButton;
@@ -49,6 +51,8 @@ public class GameFragment extends Fragment {
     private NumberButton btnInput2;
     private NumberButton btnInputOperator;
 
+    private ImageButton btnPause;
+
     private TextView tvTimer;
     private int timeCounter = 0;
     private int[] slots;
@@ -59,7 +63,7 @@ public class GameFragment extends Fragment {
     private Random random;
 
 
-    private OnFragmentInteractionListener mListener;
+    private IFragmentInteractListener mListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -115,6 +119,7 @@ public class GameFragment extends Fragment {
         btnInput2 = (NumberButton) rootView.findViewById(R.id.btnInput2);
         btnInputOperator = (NumberButton) rootView.findViewById(R.id.btnInputOperator);
         tvTimer = (TextView) rootView.findViewById(R.id.tvTimer);
+        btnPause = (ImageButton) rootView.findViewById(R.id.btnPause);
 
         btnPlus.setText(NumberButton.CHAR_PLUS);
         btnMinus.setText(NumberButton.CHAR_MINUS);
@@ -128,6 +133,13 @@ public class GameFragment extends Fragment {
         slots[1] = btnNumber2.getNumber();
         slots[2] = btnNumber3.getNumber();
         slots[3] = btnNumber4.getNumber();
+
+        btnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pause();
+            }
+        });
 
         btnNumber1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,6 +241,16 @@ public class GameFragment extends Fragment {
         timer.start();
     }
 
+    private void pause() {
+        timer.pause();
+
+        mListener.OnFragmentInteract(GameActivity.STATE_PAUSE);
+    }
+
+    public void resume() {
+        timer.start();
+    }
+
     private void reset() {
 
     }
@@ -236,7 +258,7 @@ public class GameFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            //mListener.onFragmentInteraction(uri);
         }
     }
 
@@ -244,7 +266,7 @@ public class GameFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            //mListener = (OnFragmentInteractionListener) activity;
+            mListener = (IFragmentInteractListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");

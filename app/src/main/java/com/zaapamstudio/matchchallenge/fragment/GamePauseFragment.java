@@ -8,9 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.zaapamstudio.matchchallenge.R;
+import com.zaapamstudio.matchchallenge.activity.GameActivity;
 import com.zaapamstudio.matchchallenge.utils.CountDownTimerPausable;
 import com.zaapamstudio.matchchallenge.view.NumberButton;
 
@@ -34,7 +36,10 @@ public class GamePauseFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private Button btnResume;
+    private Button btnMainMenu;
+
+    private IFragmentInteractListener mListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -67,13 +72,25 @@ public class GamePauseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_game, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_game_pause, container, false);
         initInstance(rootView);
         return rootView;
     }
 
     private void initInstance(View rootView) {
+        btnResume = (Button) rootView.findViewById(R.id.btnResume);
+        btnMainMenu = (Button) rootView.findViewById(R.id.btnMainMenu);
 
+        btnResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resume();
+            }
+        });
+    }
+
+    private void resume() {
+        mListener.OnFragmentInteract(GameActivity.STATE_RESUME);
     }
 
     private void reset() {
@@ -83,7 +100,7 @@ public class GamePauseFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            //mListener.onFragmentInteraction(uri);
         }
     }
 
@@ -91,7 +108,7 @@ public class GamePauseFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            //mListener = (OnFragmentInteractionListener) activity;
+            mListener = (IFragmentInteractListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
