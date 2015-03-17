@@ -5,10 +5,12 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.zaapamstudio.matchchallenge.R;
+import com.zaapamstudio.matchchallenge.utils.Contextor;
 
 /**
  * Created by suthamaskamollasal on 3/3/15 AD.
@@ -18,7 +20,7 @@ public class NumberButton extends LinearLayout {
     public static final String CHAR_PLUS = "+";
     public static final String CHAR_MINUS = "-";
     public static final String CHAR_MULTIPLY = "*";
-    public static final String CHAR_DEVINE = "/";
+    public static final String CHAR_DIVIDE = "/";
 
     private ImageView imgNumber1;
     private ImageView imgNumber2;
@@ -51,8 +53,6 @@ public class NumberButton extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_number, this, true);
 
-
-
         container = (LinearLayout) findViewById(R.id.contentContainer);
         imgNumber1 = (ImageView) findViewById(R.id.imgNumber1);
         imgNumber2 = (ImageView) findViewById(R.id.imgNumber2);
@@ -74,7 +74,7 @@ public class NumberButton extends LinearLayout {
         currentText = text;
         char[] chars = text.toCharArray();
 
-        //Log.d("MC", "Number str count: " + strings.length);
+        Log.e("MC", "Number set : " + text);
 
         container.removeAllViewsInLayout();
 
@@ -138,14 +138,21 @@ public class NumberButton extends LinearLayout {
 
     @Override
     public void setEnabled(boolean enabled) {
+        boolean old = isEnabled();
+
         super.setEnabled(enabled);
 
-        setText("");
-
-        if (isEnabled()) {
-            container.setEnabled(true);
-        } else {
-            container.setEnabled(false);
+        if (enabled != old) {
+            //setText("");
+            if (isEnabled()) {
+                startAnimation(AnimationUtils.loadAnimation(Contextor.getInstance().getContext(), R.anim.fade_in));
+                container.setEnabled(true);
+            } else {
+                startAnimation(AnimationUtils.loadAnimation(Contextor.getInstance().getContext(), R.anim.fade_out));
+                container.setEnabled(false);
+            }
         }
+
+
     }
 }

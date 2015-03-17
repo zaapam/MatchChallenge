@@ -130,7 +130,7 @@ public class GameFragment extends Fragment {
         btnPlus.setText(NumberButton.CHAR_PLUS);
         btnMinus.setText(NumberButton.CHAR_MINUS);
         btnMultiply.setText(NumberButton.CHAR_MULTIPLY);
-        btnDivine.setText(NumberButton.CHAR_DEVINE);
+        btnDivine.setText(NumberButton.CHAR_DIVIDE);
         btnNumber1.setNumber(getRandomNumber());
         btnNumber2.setNumber(getRandomNumber());
         btnNumber3.setNumber(getRandomNumber());
@@ -214,7 +214,7 @@ public class GameFragment extends Fragment {
             }
         });
 
-        start();
+        //start();
     }
 
     private int getRandomNumber() {
@@ -226,43 +226,59 @@ public class GameFragment extends Fragment {
             btnInput1.setEnabled(true);
             btnInput1.setNumber(number.getNumber());
             numberActive[0] = number;
-            //number.setEnabled(false);
-
-            /*int[] fromLoc = new int[2];
-            int[] toLoc = new int[2];
-            number.getLocationInWindow(fromLoc);
-            btnInput1.getLocationInWindow(toLoc);
-
-            TranslateAnimation ani = new TranslateAnimation(
-                                                        Animation.ABSOLUTE, fromLoc[0]
-                                                        ,Animation.ABSOLUTE, toLoc[0]
-                                                        ,Animation.ABSOLUTE, fromLoc[1]
-                                                        ,Animation.ABSOLUTE, toLoc[1]);
-            ani.setDuration(3000);
-            number.startAnimation(ani);*/
-            btnInput1.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
-            number.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out));
+            number.setEnabled(false);
         } else {
             btnInput2.setEnabled(true);
             btnInput2.setNumber(number.getNumber());
             numberActive[1] = number;
             number.setEnabled(false);
         }
+
+        checkEquation();
     }
 
     private void setInputOperator(NumberButton operator) {
         btnInputOperator.setEnabled(true);
         btnInputOperator.setText(operator.getText());
         operatorActive = true;
+
+        checkEquation();
     }
 
     private void checkEquation() {
-        if (btnInput1.isEnabled() && btnInput2.isEnabled() && operatorActive) {
+        int result;
 
+        if (btnInput1.isEnabled() && btnInput2.isEnabled() && operatorActive) {
+            switch (btnInputOperator.getText()) {
+                case NumberButton.CHAR_PLUS:
+                    result = btnInput1.getNumber() + btnInput2.getNumber();
+                    break;
+                case NumberButton.CHAR_MINUS:
+                    result = btnInput1.getNumber() - btnInput2.getNumber();
+                    break;
+                case NumberButton.CHAR_MULTIPLY:
+                    result = btnInput1.getNumber() * btnInput2.getNumber();
+                    break;
+                case NumberButton.CHAR_DIVIDE:
+                    result = btnInput1.getNumber() / btnInput2.getNumber();
+                    break;
+                default:
+                    result = 0;
+            }
+
+            Log.e("MC", "Result : " + result);
+
+            numberActive[1].setNumber(result);
+            numberActive[1].setEnabled(true);
+            //numberActive[0] = null;
+            //numberActive[1] = null;
+            btnInput1.setEnabled(false);
+            btnInput2.setEnabled(false);
+            btnInputOperator.setEnabled(false);
         }
     }
 
-    private void start() {
+    public void start() {
         Log.e("Test", "Start");
         timer = new CountDownTimerPausable(1000 * 9999, 1000) {
             @Override

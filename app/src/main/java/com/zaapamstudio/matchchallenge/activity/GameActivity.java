@@ -14,6 +14,7 @@ import android.os.Build;
 import com.zaapamstudio.matchchallenge.R;
 import com.zaapamstudio.matchchallenge.fragment.GameFragment;
 import com.zaapamstudio.matchchallenge.fragment.GamePauseFragment;
+import com.zaapamstudio.matchchallenge.fragment.GameStartFragment;
 import com.zaapamstudio.matchchallenge.fragment.IFragmentInteractListener;
 
 public class GameActivity extends ActionBarActivity implements IFragmentInteractListener {
@@ -21,6 +22,7 @@ public class GameActivity extends ActionBarActivity implements IFragmentInteract
     public static final String STATE_PAUSE = "pause";
     public static final String STATE_PLAY = "play";
     public static final String STATE_RESUME = "resume";
+    public static final String STATE_START_END = "start";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,9 @@ public class GameActivity extends ActionBarActivity implements IFragmentInteract
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                                        .add(R.id.container, GameFragment.newInstance(), "GameFragment")
+                                       .commit();
+            getSupportFragmentManager().beginTransaction()
+                                       .add(R.id.container, GameStartFragment.newInstance(), "GameStartFragment")
                                        .commit();
         }
     }
@@ -69,6 +74,12 @@ public class GameActivity extends ActionBarActivity implements IFragmentInteract
                                            .remove(getSupportFragmentManager().findFragmentByTag("GamePauseFragment"))
                                            .commit();
                 ((GameFragment)getSupportFragmentManager().findFragmentByTag("GameFragment")).resume();
+                break;
+            case STATE_START_END:
+                getSupportFragmentManager().beginTransaction()
+                                           .remove(getSupportFragmentManager().findFragmentByTag("GameStartFragment"))
+                                           .commit();
+                ((GameFragment)getSupportFragmentManager().findFragmentByTag("GameFragment")).start();
                 break;
         }
     }
