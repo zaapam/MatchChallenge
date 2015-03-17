@@ -10,8 +10,7 @@
         android:layout_gravity="center"
         android:background="@drawable/btn_style1_selector"
         android:gravity="center"
-        android:padding="15dp"
-        android:clickable="true">
+        android:padding="15dp">
 
         <ImageView
             android:id="@+id/imgNumber1"

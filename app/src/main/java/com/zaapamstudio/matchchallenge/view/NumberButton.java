@@ -59,9 +59,9 @@ public class NumberButton extends LinearLayout {
         imgNumber3 = (ImageView) findViewById(R.id.imgNumber3);
         imgNumber4 = (ImageView) findViewById(R.id.imgNumber4);
 
-        container.setClickable(true);
+        //container.setClickable(true);
 
-        container.setEnabled(false);
+        //container.setEnabled(false);
 
         //imgNumber1.setImageResource(R.drawable.number_2);
         //removeView(imgNumber1);
@@ -139,6 +139,8 @@ public class NumberButton extends LinearLayout {
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
+
+        setText("");
 
         if (isEnabled()) {
             container.setEnabled(true);

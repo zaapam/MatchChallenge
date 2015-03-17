@@ -9,6 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -52,6 +56,7 @@ public class GameFragment extends Fragment {
     private NumberButton btnInputOperator;
 
     private ImageButton btnPause;
+    private Button btnReset;
 
     private TextView tvTimer;
     private int timeCounter = 0;
@@ -120,6 +125,7 @@ public class GameFragment extends Fragment {
         btnInputOperator = (NumberButton) rootView.findViewById(R.id.btnInputOperator);
         tvTimer = (TextView) rootView.findViewById(R.id.tvTimer);
         btnPause = (ImageButton) rootView.findViewById(R.id.btnPause);
+        btnReset = (Button) rootView.findViewById(R.id.btnReset);
 
         btnPlus.setText(NumberButton.CHAR_PLUS);
         btnMinus.setText(NumberButton.CHAR_MINUS);
@@ -140,6 +146,17 @@ public class GameFragment extends Fragment {
                 pause();
             }
         });
+
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reset();
+            }
+        });
+
+        btnInput1.setEnabled(false);
+        btnInput2.setEnabled(false);
+        btnInputOperator.setEnabled(false);
 
         btnNumber1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,20 +222,44 @@ public class GameFragment extends Fragment {
     }
 
     private void setInputNumber(NumberButton number) {
-        if (btnInput1.isEnable() == false) {
+        if (btnInput1.isEnabled() == false) {
+            btnInput1.setEnabled(true);
             btnInput1.setNumber(number.getNumber());
-            btnInput1.setEnable(true);
             numberActive[0] = number;
+            //number.setEnabled(false);
+
+            /*int[] fromLoc = new int[2];
+            int[] toLoc = new int[2];
+            number.getLocationInWindow(fromLoc);
+            btnInput1.getLocationInWindow(toLoc);
+
+            TranslateAnimation ani = new TranslateAnimation(
+                                                        Animation.ABSOLUTE, fromLoc[0]
+                                                        ,Animation.ABSOLUTE, toLoc[0]
+                                                        ,Animation.ABSOLUTE, fromLoc[1]
+                                                        ,Animation.ABSOLUTE, toLoc[1]);
+            ani.setDuration(3000);
+            number.startAnimation(ani);*/
+            btnInput1.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
+            number.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out));
         } else {
+            btnInput2.setEnabled(true);
             btnInput2.setNumber(number.getNumber());
-            btnInput2.setEnable(true);
             numberActive[1] = number;
+            number.setEnabled(false);
         }
     }
 
     private void setInputOperator(NumberButton operator) {
+        btnInputOperator.setEnabled(true);
         btnInputOperator.setText(operator.getText());
         operatorActive = true;
+    }
+
+    private void checkEquation() {
+        if (btnInput1.isEnabled() && btnInput2.isEnabled() && operatorActive) {
+
+        }
     }
 
     private void start() {
@@ -252,6 +293,18 @@ public class GameFragment extends Fragment {
     }
 
     private void reset() {
+        btnInput1.setEnabled(false);
+        btnInput2.setEnabled(false);
+        btnInputOperator.setEnabled(false);
+
+        btnNumber1.setEnabled(true);
+        btnNumber1.setNumber(slots[0]);
+        btnNumber2.setEnabled(true);
+        btnNumber2.setNumber(slots[1]);
+        btnNumber3.setEnabled(true);
+        btnNumber3.setNumber(slots[2]);
+        btnNumber4.setEnabled(true);
+        btnNumber4.setNumber(slots[3]);
 
     }
 
