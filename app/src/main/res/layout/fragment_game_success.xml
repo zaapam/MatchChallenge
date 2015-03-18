@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99000000"
+    android:gravity="center">
+
+    <com.zaapamstudio.matchchallenge.view.FontTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Success"
+        android:textColor="#FFFFFF"
+        android:textSize="100sp"/>
+
+    <com.zaapamstudio.matchchallenge.view.FontTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time : 50 sec"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        />
+
+    <Button
+        android:id="@+id/btnMainMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Main menu"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/btn_style1_selector"/>
+
+</LinearLayout>

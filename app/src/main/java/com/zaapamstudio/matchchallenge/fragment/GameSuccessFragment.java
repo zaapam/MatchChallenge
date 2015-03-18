@@ -5,30 +5,24 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.zaapamstudio.matchchallenge.R;
 import com.zaapamstudio.matchchallenge.activity.GameActivity;
 import com.zaapamstudio.matchchallenge.activity.MainActivity;
-import com.zaapamstudio.matchchallenge.utils.CountDownTimerPausable;
-import com.zaapamstudio.matchchallenge.view.NumberButton;
-
-import java.util.Random;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link com.zaapamstudio.matchchallenge.fragment.GamePauseFragment.OnFragmentInteractionListener} interface
+ * {@link com.zaapamstudio.matchchallenge.fragment.GameSuccessFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link com.zaapamstudio.matchchallenge.fragment.GamePauseFragment#newInstance} factory method to
+ * Use the {@link com.zaapamstudio.matchchallenge.fragment.GameSuccessFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GamePauseFragment extends Fragment {
+public class GameSuccessFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,10 +32,9 @@ public class GamePauseFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Button btnResume;
-    private Button btnMainMenu;
-
     private IFragmentInteractListener mListener;
+
+    private Button btnMainMenu;
 
     /**
      * Use this factory method to create a new instance of
@@ -50,14 +43,14 @@ public class GamePauseFragment extends Fragment {
      * @return A new instance of fragment GameFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static GamePauseFragment newInstance() {
-        GamePauseFragment fragment = new GamePauseFragment();
+    public static GameSuccessFragment newInstance() {
+        GameSuccessFragment fragment = new GameSuccessFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public GamePauseFragment() {
+    public GameSuccessFragment() {
         // Required empty public constructor
     }
 
@@ -74,22 +67,13 @@ public class GamePauseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_game_pause, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_game_success, container, false);
         initInstance(rootView);
         return rootView;
     }
 
     private void initInstance(View rootView) {
-        btnResume = (Button) rootView.findViewById(R.id.btnResume);
         btnMainMenu = (Button) rootView.findViewById(R.id.btnMainMenu);
-
-        btnResume.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resume();
-            }
-        });
-
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,14 +81,15 @@ public class GamePauseFragment extends Fragment {
                 startActivity(intent);
             }
         });
-    }
+        /*btnResume = (Button) rootView.findViewById(R.id.btnResume);
+        btnMainMenu = (Button) rootView.findViewById(R.id.btnMainMenu);
 
-    private void resume() {
-        mListener.OnFragmentInteract(GameActivity.STATE_RESUME);
-    }
-
-    private void reset() {
-
+        btnResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resume();
+            }
+        });*/
     }
 
     // TODO: Rename method, update argument and hook method into UI event

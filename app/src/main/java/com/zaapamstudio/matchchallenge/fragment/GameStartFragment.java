@@ -125,20 +125,6 @@ public class GameStartFragment extends Fragment {
             }
         });
 
-        /*CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-
-
-                Log.e("MC", "OnTick()");
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        }.start();*/
-
         imgNumber.startAnimation(animation);
     }
 

@@ -67,6 +67,8 @@ public class GameFragment extends Fragment {
     private CountDownTimerPausable timer;
     private Random random;
 
+    private boolean enabled;
+
 
     private IFragmentInteractListener mListener;
 
@@ -111,6 +113,7 @@ public class GameFragment extends Fragment {
         slots = new int[]{0, 0, 0, 0};
         numberActive = new NumberButton[2];
         operatorActive = false;
+        enabled = false;
 
         btnNumber1 = (NumberButton) rootView.findViewById(R.id.btnNumber1);
         btnNumber2 = (NumberButton) rootView.findViewById(R.id.btnNumber2);
@@ -214,6 +217,22 @@ public class GameFragment extends Fragment {
             }
         });
 
+        timer = new CountDownTimerPausable(1000 * 9999, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeCounter++;
+                Log.e("Test", "Counter : " + timeCounter);
+                int sec = (int)(timeCounter % 60);
+                int min = (int)(timeCounter / 60);
+                tvTimer.setText(String.format("%02d:%02d", min, sec));
+            }
+
+            @Override
+            public void onFinish() {
+                Log.e("Test", "Finish");
+            }
+        };
+
         //start();
     }
 
@@ -222,6 +241,8 @@ public class GameFragment extends Fragment {
     }
 
     private void setInputNumber(NumberButton number) {
+        if (!enabled) return;
+
         if (btnInput1.isEnabled() == false) {
             btnInput1.setEnabled(true);
             btnInput1.setNumber(number.getNumber());
@@ -238,6 +259,8 @@ public class GameFragment extends Fragment {
     }
 
     private void setInputOperator(NumberButton operator) {
+        if (!enabled) return;
+
         btnInputOperator.setEnabled(true);
         btnInputOperator.setText(operator.getText());
         operatorActive = true;
@@ -270,48 +293,70 @@ public class GameFragment extends Fragment {
 
             numberActive[1].setNumber(result);
             numberActive[1].setEnabled(true);
+            operatorActive = false;
             //numberActive[0] = null;
             //numberActive[1] = null;
             btnInput1.setEnabled(false);
             btnInput2.setEnabled(false);
             btnInputOperator.setEnabled(false);
+
+            checkSuccess();
+        }
+    }
+
+    private void checkSuccess() {
+        NumberButton btn = null;
+        int enabled = 0;
+        if (btnNumber1.isEnabled()) {
+            btn = btnNumber1;
+            enabled++;
+        }
+        if (btnNumber2.isEnabled()) {
+            btn = btnNumber2;
+            enabled++;
+        }
+        if (btnNumber3.isEnabled()) {
+            btn = btnNumber3;
+            enabled++;
+        }
+        if (btnNumber4.isEnabled()) {
+            btn = btnNumber4;
+            enabled++;
+        }
+
+        if (enabled == 1) {
+            if (btn.getNumber() == 24) {
+                mListener.OnFragmentInteract(GameActivity.STATE_SHOW_SUCCESS);
+            }
         }
     }
 
     public void start() {
         Log.e("Test", "Start");
-        timer = new CountDownTimerPausable(1000 * 9999, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                timeCounter++;
-                Log.e("Test", "Counter : " + timeCounter);
-                int sec = (int)(timeCounter % 60);
-                int min = (int)(timeCounter / 60);
-                tvTimer.setText(String.format("%02d:%02d", min, sec));
-            }
+        setEnabled(true);
 
-            @Override
-            public void onFinish() {
-                Log.e("Test", "Finish");
-            }
-        };
         timer.start();
     }
 
     private void pause() {
+        setEnabled(false);
         timer.pause();
-
         mListener.OnFragmentInteract(GameActivity.STATE_PAUSE);
     }
 
     public void resume() {
         timer.start();
+        setEnabled(true);
     }
 
     private void reset() {
         btnInput1.setEnabled(false);
         btnInput2.setEnabled(false);
         btnInputOperator.setEnabled(false);
+
+        //numberActive[0] = null;
+        //numberActive[1] = null;
+        operatorActive = false;
 
         btnNumber1.setEnabled(true);
         btnNumber1.setNumber(slots[0]);
@@ -363,4 +408,11 @@ public class GameFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 }

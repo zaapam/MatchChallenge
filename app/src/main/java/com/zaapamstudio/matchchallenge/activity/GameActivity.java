@@ -15,6 +15,7 @@ import com.zaapamstudio.matchchallenge.R;
 import com.zaapamstudio.matchchallenge.fragment.GameFragment;
 import com.zaapamstudio.matchchallenge.fragment.GamePauseFragment;
 import com.zaapamstudio.matchchallenge.fragment.GameStartFragment;
+import com.zaapamstudio.matchchallenge.fragment.GameSuccessFragment;
 import com.zaapamstudio.matchchallenge.fragment.IFragmentInteractListener;
 
 public class GameActivity extends ActionBarActivity implements IFragmentInteractListener {
@@ -23,6 +24,7 @@ public class GameActivity extends ActionBarActivity implements IFragmentInteract
     public static final String STATE_PLAY = "play";
     public static final String STATE_RESUME = "resume";
     public static final String STATE_START_END = "start";
+    public static final String STATE_SHOW_SUCCESS = "showSuccess";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,11 @@ public class GameActivity extends ActionBarActivity implements IFragmentInteract
                                            .commit();
                 ((GameFragment)getSupportFragmentManager().findFragmentByTag("GameFragment")).start();
                 break;
+            case STATE_SHOW_SUCCESS:
+                getSupportFragmentManager().beginTransaction()
+                                           .add(R.id.container, GameSuccessFragment.newInstance(), "GameSuccessFragment")
+                                           .commit();
+                break;
         }
     }
 
@@ -98,5 +105,10 @@ public class GameActivity extends ActionBarActivity implements IFragmentInteract
             View rootView = inflater.inflate(R.layout.fragment_game, container, false);
             return rootView;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
     }
 }

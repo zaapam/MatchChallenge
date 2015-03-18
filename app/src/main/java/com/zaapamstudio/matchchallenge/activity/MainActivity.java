@@ -73,4 +73,9 @@ public class MainActivity extends ActionBarActivity implements MainFragment.OnFr
             return rootView;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
 }
