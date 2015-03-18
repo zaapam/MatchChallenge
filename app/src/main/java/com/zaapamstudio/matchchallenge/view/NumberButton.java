@@ -1,6 +1,7 @@
 package com.zaapamstudio.matchchallenge.view;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.LinearLayout;
 
 import com.zaapamstudio.matchchallenge.R;
 import com.zaapamstudio.matchchallenge.utils.Contextor;
+
+import java.util.Random;
 
 /**
  * Created by suthamaskamollasal on 3/3/15 AD.
@@ -58,6 +61,11 @@ public class NumberButton extends LinearLayout {
         imgNumber2 = (ImageView) findViewById(R.id.imgNumber2);
         imgNumber3 = (ImageView) findViewById(R.id.imgNumber3);
         imgNumber4 = (ImageView) findViewById(R.id.imgNumber4);
+
+        //Random rand = new Random();
+        int res = getRandomBackgroundResource();
+        container.setBackgroundResource(res);
+        container.setTag(res);
 
         //container.setClickable(true);
 
@@ -152,7 +160,39 @@ public class NumberButton extends LinearLayout {
                 container.setEnabled(false);
             }
         }
+    }
 
+    public void setButtonBackground(int resId) {
+        container.setBackgroundResource(resId);
+    }
 
+    public int getButtonBackground() {
+        return (int)container.getTag();
+    }
+
+    public static int getRandomBackgroundResource() {
+        Random rand = new Random();
+        int n = rand.nextInt(7);
+
+        switch (n) {
+            case 0:
+                return R.drawable.btn_style1_selector;
+            case 1:
+                return R.drawable.btn_style2_selector;
+            case 2:
+                return R.drawable.btn_style3_selector;
+            case 3:
+                return R.drawable.btn_style4_selector;
+            case 4:
+                return R.drawable.btn_style5_selector;
+            case 5:
+                return R.drawable.btn_style6_selector;
+            case 6:
+                return R.drawable.btn_style7_selector;
+            case 7:
+                return R.drawable.btn_style8_selector;
+            default:
+                return R.drawable.btn_style1_selector;
+        }
     }
 }

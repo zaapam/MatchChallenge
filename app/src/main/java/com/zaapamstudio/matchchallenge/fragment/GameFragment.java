@@ -245,14 +245,20 @@ public class GameFragment extends Fragment {
 
         if (btnInput1.isEnabled() == false) {
             btnInput1.setEnabled(true);
+            btnInput1.setButtonBackground(number.getButtonBackground());
             btnInput1.setNumber(number.getNumber());
             numberActive[0] = number;
             number.setEnabled(false);
         } else {
-            btnInput2.setEnabled(true);
-            btnInput2.setNumber(number.getNumber());
-            numberActive[1] = number;
-            number.setEnabled(false);
+            if (numberActive[1] == null) {
+                btnInput2.setEnabled(true);
+                btnInput2.setButtonBackground(number.getButtonBackground());
+                btnInput2.setNumber(number.getNumber());
+                numberActive[1] = number;
+                number.setEnabled(false);
+            }
+
+
         }
 
         checkEquation();
@@ -294,8 +300,8 @@ public class GameFragment extends Fragment {
             numberActive[1].setNumber(result);
             numberActive[1].setEnabled(true);
             operatorActive = false;
-            //numberActive[0] = null;
-            //numberActive[1] = null;
+            numberActive[0] = null;
+            numberActive[1] = null;
             btnInput1.setEnabled(false);
             btnInput2.setEnabled(false);
             btnInputOperator.setEnabled(false);
@@ -326,6 +332,7 @@ public class GameFragment extends Fragment {
 
         if (enabled == 1) {
             if (btn.getNumber() == 24) {
+                setEnabled(false);
                 mListener.OnFragmentInteract(GameActivity.STATE_SHOW_SUCCESS);
             }
         }
@@ -354,8 +361,8 @@ public class GameFragment extends Fragment {
         btnInput2.setEnabled(false);
         btnInputOperator.setEnabled(false);
 
-        //numberActive[0] = null;
-        //numberActive[1] = null;
+        numberActive[0] = null;
+        numberActive[1] = null;
         operatorActive = false;
 
         btnNumber1.setEnabled(true);
@@ -414,5 +421,9 @@ public class GameFragment extends Fragment {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public int getTimeCounter() {
+        return timeCounter;
     }
 }
